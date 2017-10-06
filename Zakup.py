@@ -29,14 +29,16 @@ class ShopTest(unittest.TestCase):
 
     def test_buy_shirt(self):
         driver = self.driver
-        driver.get(targetSite)
+        self.driver.implicitly_wait(30)
+        self.driver.maximize_window()
+        self.driver.get(targetSite)
 
         # Step 1
         category_button = driver.find_element_by_partial_link_text("T-")
         category_button.click()
 
         # step 2
-        more_button = driver.find_element_by_partial_link_text("Mor")
+        more_button = driver.find_element_by_partial_link_text("Faded")
         more_button.click()
 
         # Step 3
@@ -89,6 +91,10 @@ class ShopTest(unittest.TestCase):
         # Step 12
         bankwire = driver.find_element_by_partial_link_text("bank wire")
         bankwire.click()
+
+        # Step 13
+        confirmation = driver.find_element_by_xpath('//*[@id="cart_navigation"]/button')
+        confirmation.click()
 
     def tearDown(self):
         self.driver.close()
