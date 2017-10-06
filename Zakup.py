@@ -1,18 +1,19 @@
-# Pierwsze ćwiczenie z użyciem testowej strony automationpratice.com
-# Cel - Przeprowadzenie podstawowej ścieżki zakupu
-# Test case
-# Krok 1 - Wybór kategorii T-shirts
-# Krok 2 - Wybór produktu "Faded short Sleeve T-Shirts" za pomocą przycisku "more"
-# Krok 3 - Wybór rozmiaru M
-# Krok 4 - Wybór niebieskiego koloru
-# Krok 5 - Dodanie wybranego produktu do koszyka
-# Krok 6 - Naciśnięcie "proceed to checkout"
-# Krok 7 - Naciśnięcie "proceed to checkout"
-# Krok 8 - Zalogowanie się za pomocą danych L: piotrryszewski@gmail.com H: dupajasiu i wciśnięcie enter
-# Krok 8 - Naciśnięcie "proceed to checkout"
-# Krok 9 - Kliknięcie checkboxa Terms of service i naciśnięcie "proceed to checkout"
-# Krok 10 - Wybór "Pay by bank wire"
-# Krok 11 - Naciśnięcie "I confirm my order"
+# Target site =  automationpratice.com
+# Scope of the test - Basic route of choosing item, customizing its color,size and buying it
+#
+# Test steps
+# Step 1 - Choosing "T-Shirts" category
+# Step 2 - Choosing "Faded short Sleeve T-Shirts" though "more" button
+# Step 3 - Choosing Medium Size
+# Step 4 - Choosing blue colour
+# Step 5 - Adding item to basket
+# Step 6 - "proceed to checkout"
+# Step 7 - "proceed to checkout"
+# Step 8 - Logging in with L: piotrryszewski@gmail.com P: dupajasiu
+# Step 8 - "proceed to checkout"
+# Step 9 - Checking "Terms of service"
+# Step 10 - Choosing "Pay by bank wire"
+# Step 11 - Confirming order
 
 import unittest
 from selenium import webdriver
@@ -20,58 +21,78 @@ from selenium.webdriver.common.keys import Keys
 
 targetSite = "http://automationpractice.com"
 
+
 class ShopTest(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
 
-    # def test_check_title(self):
-    #     driver = self.driver
-    #     driver.get(targetSite)
-    #     # Sprawdzenie czy w tytule znajduje się tekst "My Store"
-    #     self.assertIn("My Store", driver.title)
-
     def test_buy_shirt(self):
         driver = self.driver
         driver.get(targetSite)
 
-        # Wyszukanie i przejście do kategorii T-Shirts - Krok 1
+        # Step 1
         category_button = driver.find_element_by_partial_link_text("T-")
         category_button.click()
 
-        # Wybór Produktu - Krok 2
+        # step 2
         more_button = driver.find_element_by_partial_link_text("Mor")
         more_button.click()
 
-        # Wybór rozmiaru - Krok 3
+        # Step 3
         dropdown_size = driver.find_element_by_id("group_1")
         for option in dropdown_size.find_elements_by_tag_name("option"):
             if option.text == "M":
                 option.click()
                 break
 
-        # Wybór koloru - Krok 4
+        # Step 4
         color = driver.find_element_by_id("color_14")
         color.click()
 
-        # Dodanie do koszyka - Krok 5
+        # Step 5
         add_to_cart = driver.find_element_by_id("add_to_cart")
         add_to_cart.click()
 
-        # Proceed to checkout - Krok 6
+        # Step 6
         driver.implicitly_wait(20)
         proceed = driver.find_element_by_partial_link_text("Proceed")
         proceed.click()
         driver.implicitly_wait(20)
 
-        # Proceed to checkout - Krok 7
+        # Step 7
         proceed_checkout = driver.find_element_by_partial_link_text("Proceed")
         proceed_checkout.click()
 
+        # step 8
 
+        login = driver.find_element_by_id("email")
+        password = driver.find_element_by_id("passwd")
+        sign_in = driver.find_element_by_id("SubmitLogin")
+
+        login.send_keys("piotrryszewski@gmail.com")
+        password.send_keys("dupajasiu")
+        sign_in.click()
+
+        # Step 9
+        proceed_checkout = driver.find_element_by_xpath('//*[@id="center_column"]/form/p/button')
+        proceed_checkout.click()
+
+        # Step 10
+        checkbox = driver.find_element_by_id("cgv")
+        checkbox.click()
+
+        # Step 11
+        proceed_checkout = driver.find_element_by_xpath('//*[@id="form"]/p/button')
+        proceed_checkout.click()
+
+        # Step 12
+        bankwire = driver.find_element_by_partial_link_text("bank wire")
+        bankwire.click()
 
     def tearDown(self):
         self.driver.close()
+
 
 if __name__ == "__main__":
     unittest.main()
