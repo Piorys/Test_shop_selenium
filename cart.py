@@ -80,7 +80,7 @@ class ShopTest(unittest.TestCase):
         filter_colour.click()
 
         #Step
-        black_blouse_more = driver.find_element_by_xpath('/html/body/div/div[2]/div/div[3]/div[2]/ul/li/div/div[2]/div[2]/a[2]')
+        black_blouse_more = driver.find_element_by_partial_link_text("More")
         black_blouse_more.click()
         driver.implicitly_wait(20)
 
@@ -102,7 +102,7 @@ class ShopTest(unittest.TestCase):
         driver.implicitly_wait(20)
 
         # Step
-        quantity_input_2 = driver.find_element_by_xpath('//*[@id="product_2_7_0_0"]/td[5]/input[2]')
+        quantity_input_2 = driver.find_element_by_xpath('/html/body/div/div[2]/div/div[3]/div/div[2]/table/tbody/tr[2]/td[5]/input[2]')
         quantity_input_2.clear()
         quantity_input_2.send_keys("1024")
 
