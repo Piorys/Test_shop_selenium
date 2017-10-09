@@ -1,5 +1,6 @@
 # Target site =  automationpratice.com
-# Scope of the test - Basic route of choosing item, customizing its color,size and buying it
+# Scope of the test - Basic route of choosing item, customizing its color,size and buying it. At the end assert final
+# price of the item.
 #
 # Test steps
 # Step 1 - Choosing "T-Shirts" category
@@ -14,6 +15,7 @@
 # Step 9 - Checking "Terms of service"
 # Step 10 - Choosing "Pay by bank wire"
 # Step 11 - Confirming order
+# Step 12 - Checking final price
 
 import unittest
 from selenium import webdriver
@@ -96,9 +98,14 @@ class ShopTest(unittest.TestCase):
         confirmation = driver.find_element_by_xpath('//*[@id="cart_navigation"]/button')
         confirmation.click()
 
+        # Ste 14
+
+        price = driver.find_element_by_xpath('//*[@id="center_column"]/div/span/strong').text
+
+        self.assertTrue("19.25 ", price)
+
     def tearDown(self):
         self.driver.close()
-
 
 if __name__ == "__main__":
     unittest.main()
