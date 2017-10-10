@@ -1,2 +1,3 @@
 Target site =  automationpratice.com
-Scope of the test - Basic route of choosing item, customizing its color,size and buying it
+
+Learning how to use Selenium buckled up with Python bindings
