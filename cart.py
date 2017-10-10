@@ -17,6 +17,7 @@ targetSite = "http://automationpractice.com"
 
 class ShopTest(unittest.TestCase):
 
+
     def setUp(self):
         self.driver = webdriver.Chrome()
 
